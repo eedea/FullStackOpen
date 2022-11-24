@@ -24,6 +24,14 @@ const Results = ({ good, bad, neutral }) => {
 };
 
 const Statistics = ({ good, bad, neutral }) => {
+  const all = good + bad + neutral;
+  if (all === 0)
+    return (
+      <>
+        <Title text="Statistics" />
+        <p>No feedback given</p>
+      </>
+    );
   return (
     <>
       <Title text="Statistics" />
