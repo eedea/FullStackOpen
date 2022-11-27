@@ -5,7 +5,7 @@ const Search = ({ searchString, setSearchString }) => {
 
   return (
     <p>
-      find countries{" "}
+      find countries
       <input value={searchString} onChange={searchStringChangeHandler} />
     </p>
   );
