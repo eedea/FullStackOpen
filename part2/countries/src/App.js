@@ -19,7 +19,10 @@ function App() {
   return (
     <div>
       <Search searchString={searchString} setSearchString={setSearchString} />
-      <Results countries={filteredCountries} />
+      <Results
+        countries={filteredCountries}
+        setSearchString={setSearchString}
+      />
     </div>
   );
 }
