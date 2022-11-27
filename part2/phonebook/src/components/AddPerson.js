@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const AddPerson = ({
   newName,
   setNewName,
@@ -15,9 +17,16 @@ const AddPerson = ({
     ) {
       return alert(`${newName} is already added to phonebook`);
     }
-    setPersons(persons.concat({ name: newName, number: newNumber }));
-    setNewName("");
-    setNewNumber("");
+    axios
+      .post("http://localhost:3001/persons", {
+        name: newName,
+        number: newNumber,
+      })
+      .then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewNumber("");
+      });
   };
 
   const nameChangeHandler = (event) => {
