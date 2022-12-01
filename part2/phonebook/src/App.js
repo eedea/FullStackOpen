@@ -37,6 +37,7 @@ const App = () => {
             searchString === "" ||
             RegExp(`${searchString}`, "i").test(person.name)
         )}
+        setPersons={setPersons}
       />
     </div>
   );
