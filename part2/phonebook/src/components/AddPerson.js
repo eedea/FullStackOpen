@@ -18,13 +18,30 @@ const AddPerson = ({
         return person.name === newName;
       })
     ) {
-      return alert(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook. Replace the old number with a new one?`
+        )
+      ) {
+        const person = persons.find((person) => person.name === newName);
+        personsService.update(newName, newNumber, person.id).then((res) => {
+          setPersons(persons.filter((p) => p.id !== res.id).concat(res));
+          setNewName("");
+          setNewNumber("");
+          return;
+        });
+      } else {
+        setNewName("");
+        setNewNumber("");
+        return;
+      }
+    } else {
+      personsService.create(newName, newNumber).then((person) => {
+        setPersons(persons.concat(person));
+        setNewName("");
+        setNewNumber("");
+      });
     }
-    personsService.create(newName, newNumber).then((person) => {
-      setPersons(persons.concat(person));
-      setNewName("");
-      setNewNumber("");
-    });
   };
 
   const nameChangeHandler = (event) => {
