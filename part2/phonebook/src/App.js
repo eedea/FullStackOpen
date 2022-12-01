@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import personsService from "./services/persons";
 
 import Persons from "./components/Persons";
 import Search from "./components/Search";
@@ -12,8 +12,8 @@ const App = () => {
   const [searchString, setSearchString] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
+    personsService.getAll().then((persons) => {
+      setPersons(persons);
     });
   }, []);
 
