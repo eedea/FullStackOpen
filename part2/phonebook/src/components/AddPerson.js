@@ -10,6 +10,9 @@ const AddPerson = ({
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
+    if (!newName) return alert("Name field cannot be empty");
+    if (!newNumber) return alert("Number field cannot be empty");
+
     if (
       persons.find((person) => {
         return person.name === newName;
