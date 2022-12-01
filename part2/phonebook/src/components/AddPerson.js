@@ -7,6 +7,7 @@ const AddPerson = ({
   setNewNumber,
   persons,
   setPersons,
+  setNotification,
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
@@ -28,6 +29,13 @@ const AddPerson = ({
           setPersons(persons.filter((p) => p.id !== res.id).concat(res));
           setNewName("");
           setNewNumber("");
+          setNotification({
+            message: `${person.name} changed`,
+            type: "success",
+          });
+          setTimeout(() => {
+            setNotification({ message: null, type: "" });
+          }, 5000);
           return;
         });
       } else {
@@ -40,6 +48,10 @@ const AddPerson = ({
         setPersons(persons.concat(person));
         setNewName("");
         setNewNumber("");
+        setNotification({ message: `${person.name} added`, type: "success" });
+        setTimeout(() => {
+          setNotification({ message: null, type: "" });
+        }, 5000);
       });
     }
   };

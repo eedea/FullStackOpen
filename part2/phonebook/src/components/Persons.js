@@ -1,6 +1,6 @@
 import Person from "./Person";
 
-const Persons = ({ persons, setPersons }) => (
+const Persons = ({ persons, setPersons, setNotification }) => (
   <>
     {persons.map((person) => (
       <Person
@@ -8,6 +8,7 @@ const Persons = ({ persons, setPersons }) => (
         person={person}
         persons={persons}
         setPersons={setPersons}
+        setNotification={setNotification}
       />
     ))}
   </>
