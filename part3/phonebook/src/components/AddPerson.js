@@ -25,34 +25,56 @@ const AddPerson = ({
         )
       ) {
         const person = persons.find((person) => person.name === newName);
-        personsService.update(newName, newNumber, person.id).then((res) => {
-          setPersons(persons.filter((p) => p.id !== res.id).concat(res));
-          setNewName("");
-          setNewNumber("");
-          setNotification({
-            message: `${person.name} changed`,
-            type: "success",
+        personsService
+          .update(newName, newNumber, person.id)
+          .then((res) => {
+            setPersons(persons.filter((p) => p.id !== res.id).concat(res));
+            setNewName("");
+            setNewNumber("");
+            setNotification({
+              message: `${person.name} changed`,
+              type: "success",
+            });
+            setTimeout(() => {
+              setNotification({ message: null, type: "" });
+            }, 5000);
+            return;
+          })
+          .catch((err) => {
+            setNotification({
+              message: err.response.data.error,
+              type: "error",
+            });
+            setTimeout(() => {
+              setNotification({ message: null, type: "" });
+            }, 5000);
           });
-          setTimeout(() => {
-            setNotification({ message: null, type: "" });
-          }, 5000);
-          return;
-        });
       } else {
         setNewName("");
         setNewNumber("");
         return;
       }
     } else {
-      personsService.create(newName, newNumber).then((person) => {
-        setPersons(persons.concat(person));
-        setNewName("");
-        setNewNumber("");
-        setNotification({ message: `${person.name} added`, type: "success" });
-        setTimeout(() => {
-          setNotification({ message: null, type: "" });
-        }, 5000);
-      });
+      personsService
+        .create(newName, newNumber)
+        .then((person) => {
+          setPersons(persons.concat(person));
+          setNewName("");
+          setNewNumber("");
+          setNotification({ message: `${person.name} added`, type: "success" });
+          setTimeout(() => {
+            setNotification({ message: null, type: "" });
+          }, 5000);
+        })
+        .catch((err) => {
+          setNotification({
+            message: err.response.data.error,
+            type: "error",
+          });
+          setTimeout(() => {
+            setNotification({ message: null, type: "" });
+          }, 5000);
+        });
     }
   };
 
